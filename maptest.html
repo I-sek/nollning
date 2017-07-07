@@ -1,0 +1,329 @@
+<body>
+<div id="map"></div>
+</body>
+
+<script type="text/javascript">
+var loadcheck = 0;
+var infos = [];
+var markers = [];
+var locations = [
+  ['Lundagård', 55.704744, 13.194413,'kringla','Trädgården framför AF-Borgen har agerat samlingsplats för lundabor, och därmed studenter, i många hundra år. En av de kanske livligaste platserna i Lund som samlar allt från nollningslekar, förmingel och stafettfinaler till rektorsuppvaktningar och vårinsjungning'],
+  ['M-huset', 55.709338, 13.209777,'ISEK','Vårt "hem" på LTH. Döpt efter sektionen vi delar huset med, Maskinsektionen. Här hittar du vårt café, föreläsningssalar och grupprum'],
+  ['Vildanden', 55.708788, 13.167913,'AFB','Det av AFBs bostadsområden som ligger längst ifrån Lund. Det är dock bara 15 minuter med cykel till LTH och kan vara ett bra val om man vill bo lite lugnare'],
+  ['Lundafalafel', 55.702351, 13.192622,'MAT','Här hittar du Lunds billigaste falafel för 30:-. Vissa hävdar även att den är godast, undertecknad inkluderat, men så har vi också lite ont om pengar'],
+  ['Studentlyckan', 55.6956249,13.2035011,'AFB',''],
+  ['Ulrikedal', 55.6977057,13.2033696,'AFB','Ett lummigt studentområde som erbjuder båda korridorrum och studentlägenheter nära till stan. Lyckas bra med att vara lagom nära till både campus och city'],
+  ['Kämnärsrätten', 55.7219318,13.2139188,'AFB','Ett av AFBs bostadsområden främst känt för sina studentlägenheter. Nära till både Willys och Ica. Nya bostäder planeras också att byggas här och borde stå klara om några år.'],
+  ['Delphi', 55.7222703,13.2096542,'AFB','Ett av AFBs bostadsområden med både korridorrum och studentlägenheter av olika storlekar. Delphi ligger i lundamått långt från stan då det tar ungefär tio minuter ner till stan'],
+  ['Sparta', 55.709837, 13.216445,'AFB','Det AFB-bostadsområde som ligger närmast LTH med gångavstånd både till campus, mataffär, gym och till och med tentasalar. Tack vare detta är det inte helt konstigt att de som bor där sällan syns nere på stan. Sparta är ett av de mer kända studentkorridorsområdena.'],
+  ['Parentesen', 55.698398, 13.199577,'AFB','"Parran" är ett centralt beläget bostadsområde som  erbjuder korridorrum för en ganska billig månadshyra. Det är även AFBs mest fartfyllda boende med fester i princip varje helg'],
+  ['Michael Hansens Kollegium', 55.708221, 13.214855,'MHK','Mikael Hansens kollegium, eller MHK, är ett bostadsområde nära LTH. Här finns erbjuds bra korridorsrum till en billig månadshyra. Detta är också det enda studentboende som du kan ställa dig i kö till innan du blivit antagen! Många I-are bor här, till stor del pga deras stipendium till elever med bra betyg från gymnasiet'],
+  ['Helsingkrona Nation', 55.7095291,13.2080796,'NATION','HKs i folkmun, Helsinkrona nation går inte att missa om man går på TLTH. Med sin "skyskrapa" mitt framför M-huset och deras kolossala bostadshus precis bredvid är de hem till 354 studenter och två matställen. Missa inte: Schlagerkvällarna!'],
+  ['Sydskånska Nationen', 55.709439,13.2070691,'NATION','SSK har med sin musikfokus lockat både utbytesstudenter och dansintresserade. Med många temaklubbar med livemusik är det en av de roligaste nationerna för dig som gillar att dansa. Missa inte: Svartklubben varannan lördag, och filmmys på söndagar'],
+  ['Kristianstads Nation', 55.7090281,13.2075117,'NATION',''],
+  ['Västgöta Nation', 55.705470, 13.210353,'NATION','Mer känt som "VGs", så har Västgöta nation vuxit till att bli en av de populäraste på senare år, till stor del tack vare deras onsdagsklubb Metro som skapar ringlande köer varje vecka. Lite av en hemmanation för I-sektionen, var beredd på att träffa I-are här. Missa inte: Metro, men se till att vara där senast 22!'],
+  ['Hallands Nation', 55.705534, 13.211131,'NATION',''],
+  ['Lunds Nation', 55.703549, 13.199655,'NATION',''],
+  ['Göteborgs Nation', 55.701449, 13.1997822,'NATION','Med en av de mest centrala klubbarna på Östra mårtensgatan drar Göteborgs många ekonomer och studenter från andra linjer som tenderar att bo mer centralt. Det sägs att I15 är bannade från att boka sittning efter en händelsfull tentasittning där. Missa inte:'],
+  ['Östgöta Nation', 55.7045269, 13.1981541,'NATION',''],
+  ['Malmö Nation', 55.704440, 13.201074,'NATION',''],
+  ['Wermlands Nation', 55.6994484, 13.1937167,'NATION',''],
+  ['Blekingska Nationen', 55.70855,13.167633,'NATION',''],
+  ['Kalmar Nation', 55.706472, 13.198472,'NATION','En nation som hamnat lite i skymundan och verkar vara nöjd med det. Kalmar sticker ut med att endast ha pub- och lunchverksamhet och har på så sätt lockat en kanske lite "lugnare" crowd. De är också den inofficiella bytisnationen och har sedan några år tillbaka Lunds enda spex på engelska. Missa inte: Brädspelskvällarna och fantastiska burgare på deras fredagspub'],
+  ['Smålands Nation', 55.6979264,13.1984974,'NATION','En lite annorlunda nation, Smålands är vår enda uttalat politiska nation och tillåts således inte vara medlem i Studentlund. Detta betyder att vem som helst kan gå på deras klubbar och är ett bra alternativ om man har kompisar på besök hemifrån. Missa inte: Karaoke och fullproppade Håkan Hellström-kvällar'],
+  ['Mårtenstorget', 55.701728, 13.196561,'kringla','']
+,
+  ['AF-Borgen', 55.705412, 13.195641,'AFB','Om studentlivets mekka är Lund är AFborgen dess Kabba'],
+  ['Botan', 55.704741, 13.203223,'kringla','Här kan du lukta på blommor, pimpla rose och sola'],
+  ['Systemet Mårtenstorget', 55.7016998, 13.1946753,'SYS','Gammalt och fint, Sveriges högst trafikerade system'],
+  ['Systemet Stationen', 55.7057496, 13.187896,'SYS','Bra beläget nära stationen om man glömde köpa en gå-bort present'],
+  ['Systemet Nova', 55.7173937, 13.1629139,'SYS','Beläget i Lunds egna köpcentrum, lite svårt att ta sig till utan bil'],
+  ['ICA Clemenstorget', 55.7067047, 13.1882112,'ICA','Kallas av många för "malmborgs" men detta är tydligen bara ett namn på denna typ av ICA-affär'],
+  ['ICA Tuna', 55.7099084, 13.2150346,'ICA','Kallas också "ICA-Sparta". Deras lunchdeli är ett trevligt alternativ när man börjar tröttna på GOG-sallad och falafel'],
+  ['ICA Fäladstorget', 55.7237477, 13.2036191,'ICA','Hit skickar de ibland mina paket trots att jag bor i centrala Lund, ingenting annat gör mig så arg'],
+  ['Grönt & Gott', 55.709903, 13.208596,'GOG','En av två matställen på LTH-campus, Grönt och Gott är precis vad det heter. Ser du någon lämna 10-föreläsningen tidigt är det antagligen för att försöka hinna dit innan lunchanstormningen. En smartare taktik är att förbeställa på nätet!'],
+  ['Gott och Nära', 55.709746, 13.207856,'MAT','Namnet är det enda som Gott och nära har gemensamt med sin gröna granne. Campus andra matställe kan du gå till för att slippa det värsta lunchkaoset och nyttig mat. Med bra öppetider har de räddat många kvällshungriga studenter under tentaperioder.'],
+  ];
+var styles = [
+    {
+        "featureType": "landscape.man_made",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#f7f1df"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape.natural",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#d0e3b4"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape.natural.terrain",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.business",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.medical",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#fbd3da"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.park",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#bde6ab"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#ffe15f"
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "color": "#efd151"
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#ffffff"
+            }
+        ]
+    },
+    {
+        "featureType": "road.local",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "black"
+            }
+        ]
+    },
+    {
+        "featureType": "transit.station.airport",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#cfb2db"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#a2daf2"
+            }
+        ]
+    }
+];
+	
+function initialize() {
+	//Set map options
+	var myOptions = {
+		center: new google.maps.LatLng(55.7034474,13.1947341),
+		zoom: 15,
+		scrollwheel: false,
+		mapTypeId: google.maps.MapTypeId.ROADMAP,
+		styles: styles,
+
+	};
+	var map = new google.maps.Map(document.getElementById("map"), myOptions); //set var "map" with the options
+	setMarkers(map,locations,600) //Run marker-placing function
+}
+
+
+
+//define markers
+function setMarkers(map,locations,timeout){
+  var marker, i
+	for (i = 0; i < locations.length; i++){  
+		var title = locations[i][0]
+		var lat  = locations[i][1]
+		var long = locations[i][2]
+		var icon = locations[i][3]
+		var info = locations[i][4]
+		latlngset = new google.maps.LatLng(lat, long);
+
+		if(icon == 'AFB'){//select the right icon
+			var icon = 'http://isek.antonn.se/wp-content/uploads/2016/06/afbsmall.png';
+		} else if (icon == 'ISEK'){
+			var icon = 'http://isek.antonn.se/wp-content/uploads/2016/06/isek-small.png';
+		} else if (icon == 'GOG'){
+			var icon = 'http://isek.antonn.se/wp-content/uploads/2016/06/gog-small.png';
+		} else if (icon == 'ICA'){
+			var icon = 'http://isek.antonn.se/wp-content/uploads/2016/06/ICA-small.png';
+		} else if (icon == 'MHK'){
+			var icon = 'http://isek.antonn.se/wp-content/uploads/2016/06/mhk-small.png';
+		} else if (icon == 'MAT'){
+			var icon = 'http://isek.antonn.se/wp-content/uploads/2016/06/mat-small.png';
+		} else if (icon == 'kringla'){
+			var icon = 'http://isek.antonn.se/wp-content/uploads/2016/06/kringla.png';
+		} else if (icon == 'SYS'){
+			var icon = 'http://isek.antonn.se/wp-content/uploads/2016/06/systemet-small.png';
+		} else if (icon == 'NATION'){
+			if (title == 'Helsingkrona Nation'){
+				var icon = 'http://isek.antonn.se/wp-content/uploads/2016/06/HK-small.png';}
+			else if (title == 'Östgöta Nation'){
+				var icon = 'http://isek.antonn.se/wp-content/uploads/2016/06/ÖG-small.png';}
+			else if (title == 'Sydskånska Nationen'){
+				var icon = 'http://isek.antonn.se/wp-content/uploads/2016/06/SSk-small.png';}
+			else if (title == 'Kristianstads Nation'){
+				var icon = 'http://isek.antonn.se/wp-content/uploads/2016/06/krischan-small.png';}
+			else if (title == 'Västgöta Nation'){
+				var icon = 'http://isek.antonn.se/wp-content/uploads/2016/06/VG-small.png';}
+			else if (title == 'Hallands Nation'){
+				var icon = 'http://isek.antonn.se/wp-content/uploads/2016/06/hallands-small.png';}
+			else if (title == 'Lunds Nation'){
+				var icon = 'http://isek.antonn.se/wp-content/uploads/2016/06/Lunds-small.png';}
+			else if (title == 'Göteborgs Nation'){
+				var icon = 'http://isek.antonn.se/wp-content/uploads/2016/06/Göteborg-small.png';}
+			else if (title == 'Malmö Nation'){
+				var icon = 'http://isek.antonn.se/wp-content/uploads/2016/06/Malmö-small.png';}
+			else if (title == 'Wermlands Nation'){
+				var icon = 'http://isek.antonn.se/wp-content/uploads/2016/06/Wermlands-small.png';}
+			else if (title == 'Blekingska Nationen'){
+				var icon = 'http://isek.antonn.se/wp-content/uploads/2016/06/Blekingska-small.png';}
+			else if (title == 'Kalmar Nation'){
+				var icon = 'http://isek.antonn.se/wp-content/uploads/2016/06/kalmar-small.png';}
+			else if (title == 'Smålands Nation'){
+				var icon = 'http://isek.antonn.se/wp-content/uploads/2016/06/smålands-small.png';}
+			
+		};
+		//Define the markers var
+		var marker = new google.maps.Marker({  
+			icon: icon, map: map, title: title , position: latlngset, animation: google.maps.Animation.DROP 
+		});
+
+		//add the info window
+		var content = "<div id='infobox'><div id='titlebox'><p>" + title + "</p></div><div id='textbox'>" + info + "</div></div>"     
+		var infowindow = new google.maps.InfoWindow({maxWidth:400})
+	
+	
+		google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
+			return function() {
+			
+			/* close the previous info-window */
+			closeInfos();
+			infowindow.setContent(content);
+			infowindow.open(map,marker);
+				
+			/* keep the handle, in order to close it on next click event */
+			infos[0]=infowindow;
+			};
+		})(marker,content,infowindow)); 
+	}
+}
+
+function closeInfos(){
+   if(infos.length > 0){
+       /* detach the info-window from the marker ... undocumented in the API docs */
+      infos[0].set("marker", null);
+ 
+      /* and close it */
+      infos[0].close();
+ 
+      /* blank the array */
+      infos.length = 0;
+   }
+}
+
+
+
+
+
+//change height of map to 80% in mobile browsers
+function resize()
+{
+    var heights = window.innerHeight;
+    document.getElementById("map").style.height = heights * 0.8 + "px";
+}
+resize();
+window.onresize = function() {
+    resize();
+};
+</script>
+
+<style>
+	p{
+		margin:0;
+		padding:0;
+	}
+    #map {
+		height: 600px; width:100%;
+    }
+	#infobox{
+        display:inline-block;
+	}
+	#titlebox{
+		color:#70002d;
+	}
+	#titlebox p{
+		font-size:28px;
+		font-weight:400;
+        margin-top:12px;
+	}
+	#textbox{
+		margin:2px 0 3px 1px;
+	}
+</style>
+
+<script type="text/javascript"
+  src=
+"http://maps.googleapis.com/maps/api/js?key=AIzaSyDupbS9vQfrl09DV61ffNnf2ux6XSerltg&sensor=false&callback=initialize">
+</script>

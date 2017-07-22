@@ -1,10 +1,11 @@
 @import url('normalize.css');
 /* General Demo Style */
 body{
-	font-family: 'Open Sans Condensed','Arial Narrow', serif;
+	font-family: 'Open Sans','Arial Narrow', serif;
 	font-weight: 400;
-	font-size: 16px;
-	color: #333;
+	font-size: 14px;
+	color: #666;
+	margin: 0;
 	-webkit-font-smoothing: antialiased;
 	-moz-font-smoothing: antialiased;
 	background: url('./bg.jpg');
@@ -30,13 +31,18 @@ ul span {
 	font-size: 1.35em;
 	color: #70002d;
 }
-a{
-	color: #555;
+a,
+a:visited, 
+a:hover, 
+a:active {
 	text-decoration: none;
+	color: #70002d;
 }
+
+
 .wrap{
 	width: 95%;
-	max-width: 800px;
+	max-width: 600px;
 	margin: 0 auto 10% auto;
 	background: rgba(255,255,255,0.95);
 	height: auto;
@@ -242,10 +248,9 @@ ul {
 
 .smalltext{
     font-size: 16px;
+	margin-top:2px;
 }
-.link{
-		color: #70002d;
-}
+
 #centered-logo{
 	text-align: center;
 	margin: auto;

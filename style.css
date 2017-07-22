@@ -1,3 +1,15 @@
+body::-webkit-scrollbar {
+    width: 0;
+}
+
+body::-webkit-scrollbar-track {
+
+}
+
+body::-webkit-scrollbar-thumb {
+
+}
+
 ul {
   padding-left: 0;
   list-style-type: none;
@@ -5,7 +17,7 @@ ul {
 .tabs {
   position: relative;
   margin: 0 auto;
-  max-width: 800px;
+  max-width: 600px;
 }
 
 .tabs input {
@@ -26,9 +38,7 @@ ul {
 .tabs input#tab-3{
   left: 400px;
 }
-.tabs input#tab-4{
-  left: 600px;
-}
+
 
 .tabs label {
   background: #70002d;
@@ -45,7 +55,7 @@ ul {
   padding: 0 20px;
   display: block;
   color: #f4f4f4;
-  letter-spacing: 1px;
+  letter-spacing: 1px;		
   text-transform: uppercase;
   font-weight: bold;
   text-align: center;
@@ -75,10 +85,6 @@ ul {
 
 .tab-label-3 {
   z-index: 2;
-}
-
-.tab-label-4 {
-  z-index: 1;
 }
 
 .tabs input:checked + label {
@@ -111,8 +117,7 @@ ul {
 
 .tabs input.tab-selector-1:checked ~ .content .content-1,
 .tabs input.tab-selector-2:checked ~ .content .content-2,
-.tabs input.tab-selector-3:checked ~ .content .content-3,
-.tabs input.tab-selector-4:checked ~ .content .content-4 {
+.tabs input.tab-selector-3:checked ~ .content .content-3 {
 
   z-index: 100;
   -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
@@ -134,9 +139,8 @@ ul {
   line-height: 22px;
   text-align: left;
   margin: 0;
-  color: #777;
+  color: #666;
   font-family: 'Open Sans','Arial Narrow', serif;
-  /*font-family: Cambria, Georgia, serif;*/
 }
 
 .content-1{
@@ -252,6 +256,11 @@ dl, menu, ol, ul {
 	margin-bottom: 40px;
 }
 */
+
+.content-1 .content-2  .content-3 {
+	padding-bottom: 40px;
+}
+
 @media only screen /*Larger tablets*/
     and (max-width: 870px){
       html{min-height: 100%;}
@@ -272,10 +281,10 @@ dl, menu, ol, ul {
         width: auto;
         /*max-width: auto;*/
       }
-      .tabs label {float:left; width:25%;padding: 0;}
-      .tabs label:after {width:25%;}
+      .tabs label {float:left; width:33%;padding: 0;}
+      .tabs label:after {width:33%;}
       .tabs input {
-        width: 25%;
+        width: 33%;
       }
       .tabs input#tab-2{
         left: 0;
@@ -285,10 +294,7 @@ dl, menu, ol, ul {
         left: 0;
         left: auto;
       }
-      .tabs input#tab-4{
-        left: 0;
-        left: auto;
-      }
+      
 
   }
   /* ipad Landscape */
@@ -315,10 +321,10 @@ dl, menu, ol, ul {
       width: auto;
       max-width: 100%;
     }
-    .tabs label {float:left; width:25%;padding: 0;}
-    .tabs label:after {width:25%;}
+    .tabs label {float:left; width:33%;padding: 0;}
+    .tabs label:after {width:33%;}
     .tabs input {
-      width: 25%;
+      width: 33%;
     }
     .tabs input#tab-2{
       left: 0;
@@ -328,10 +334,7 @@ dl, menu, ol, ul {
       left: 0;
       left: auto;
     }
-    .tabs input#tab-4{
-      left: 0;
-      left: auto;
-    }
+	
     .top{
       padding: 1% 1% 1% 1%!important;
     }
@@ -381,10 +384,10 @@ dl, menu, ol, ul {
     .map-container{
       margin-top: 0;
     }
-    .tabs label {float:left; width:25%;padding: 0;}
-    .tabs label:after {width:25%;}
+    .tabs label {float:left; width:33%;padding: 0;}
+    .tabs label:after {width:33%;}
     .tabs input {
-      width: 25%;
+      width: 33%;
     }
     .tabs input#tab-2{
       left: 0;
@@ -394,10 +397,8 @@ dl, menu, ol, ul {
       left: 0;
       left: auto;
     }
-    .tabs input#tab-4{
-      left: 0;
-      left: auto;
-    }
+
+	
     .toTop {
       position: fixed;
       width: 24%;
@@ -525,12 +526,5 @@ dl, menu, ol, ul {
         width: 0;
         width: 22%!important;
       }
-      #tab-4{
-        width: 0;
-        width: 31%!important;
-      }
-      .tab-label-4{
-        width: 0;
-        width: 31%!important;
-      }
+      
 }

@@ -88,16 +88,28 @@ body {
 @media screen and (max-width: 768px) { /* mobile */
   body {
     background: url('../img/background-xs.jpg');
+    background-size: 100%;
+    background-attachment: fixed;
+    background-position: center top;
+    background-repeat: no-repeat;
   }
 }
 @media screen and (min-width: 768px) { /* tablet */
   body {
     background: url('../img/background-md.jpg');
+    background-size: 100%;
+    background-attachment: fixed;
+    background-position: center top;
+    background-repeat: no-repeat;
   }
 }
 @media screen and (min-width: 992px) { /* desktop */
   body {
     background: url('../img/background-lg.jpg');
+    background-size: 100%;
+    background-attachment: fixed;
+    background-position: center top;
+    background-repeat: no-repeat;
   }
 }
 

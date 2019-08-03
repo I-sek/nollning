@@ -55,7 +55,7 @@
   --color-primary-dark: #68002a; 
   --color-text-light: #ffffff;
   --color-text-dark: #666666;
-  --color-no-background: #ededed;
+  --color-no-background: #ebebeb;
   --color-light: #ffffff;
   --color-table-odd: #e7e7e7;
   --color-shadow-inner-top: #000000B4;
@@ -78,6 +78,9 @@ a, a:hover, a:visited {
 }
 
 /* Background settings (mobile, tablet, desktop)*/
+html {
+  background-color: var(--color-no-background);
+}
 body {
   background-color: var(--color-no-background);
   background-size: 100%;
@@ -325,7 +328,9 @@ body {
   display: block;
 }
 
-.day-body .date {
+.day-body .miniheader {
+  display: flex;
+  justify-content: space-between;
   font-family: 'Open Sans Condensed', sans-serif;
   color: var(--color-primary);
 }

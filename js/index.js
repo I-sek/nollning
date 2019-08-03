@@ -1,5 +1,5 @@
 // User settings
-const gasqueTime = new Date('2019-03-08 16:00');
+const gasqueTime = new Date('2019-09-20 18:00');
 
 
 
@@ -48,27 +48,33 @@ function loadWeekData() {
       const date = new Date(day.date);
       const dayLabel = dayLabels[date.getDay()];
       const extraCss = index % 2 === 0 ? '' : 'odd';
+      // FIXME Add link to maps
       weekDataHtml +=
         `<div class="row day-header ${extraCss}" onclick="toggleDay(this)">
-           <div class="col">
-             <span class="day-label">${dayLabel}</span>
-             <span class="day-header-content">${day.header}</span>
-           </div>
-         </div>
-         <div class="row day-body">
-           <div class="col">
-             <div class="date">
-               ${dayLabel} ${date.getDate()}/${date.getMonth() + 1}
-             </div>
-             ${day.body}
+          <div class="col">
+            <span class="day-label">${dayLabel}</span>
+            <span class="day-header-content">${day.header}</span>
+          </div>
+        </div>
+        <div class="row day-body">
+          <div class="col">
+            <div class="miniheader">
+              <div>
+                ${dayLabel} ${date.getDate()}/${date.getMonth() + 1}
+              </div>
+              <div>
+                ${day.shortInfo}
+              </div>
+            </div>
+            ${day.body}
 
-             <br><br>
+            <br><br>
 
-             <a href="https://maps.google.com/?q=${day.geo}" target="_blank" rel="noopener noreferrer">
-               <img class="img-fluid" alt="Visa var på Google Maps" src="https://maps.googleapis.com/maps/api/staticmap?markers=${day.geo}&size=560x200&key=${MAPS_API_KEY}">
-             </a>
-           </div>
-         </div>`;
+            <!--<a href="https://maps.google.com/?q=${day.geo}" target="_blank" rel="noopener noreferrer">
+              <img class="img-fluid" alt="Visa var på Google Maps" src="https://maps.googleapis.com/maps/api/staticmap?markers=${day.geo}&size=560x200&key=${MAPS_API_KEY}">
+            </a>-->
+          </div>
+        </div>`;
     });
     
     // Week end

@@ -1,5 +1,5 @@
 // User settings
-const gasqueTime = new Date('2019-09-20 18:00');
+const gasqueTime = new Date('2019-09-20 17:00');
 
 
 
@@ -16,7 +16,7 @@ const dayLabels = [
   'TOR',
   'FRE',
   'LÖR',
-]
+];
 
 
 // Setup
